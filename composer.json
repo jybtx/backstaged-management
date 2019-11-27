@@ -18,6 +18,9 @@
     "autoload": {
         "psr-4": {
             "Jybtx\\Backstaged\\": "src"
-        }
+        },
+        "files": [
+            "src/Helps/helpers.php"
+        ],
     }
 }
