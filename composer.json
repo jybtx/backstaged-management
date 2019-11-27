@@ -1,0 +1,23 @@
+{
+    "name": "jybtx/backstaged-management",
+    "description": "Background management system",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["laravel", "admin", "backstaged", "management"],
+    "authors": [
+        {
+            "name": "jybtx",
+            "email": "2574034626@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "~6.0",
+    },
+    "autoload": {
+        "psr-4": {
+            "Jybtx\\Backstaged\\": "src"
+        }
+    }
+}
