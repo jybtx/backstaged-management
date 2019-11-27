@@ -1,12 +1,9 @@
-<h1 align="center"> backstaged-management </h1>
-
-<p align="center"> Background management system.</p>
-
+<h1> backstaged-management </h1>
 
 ## Installing
 
 ```shell
-$ composer require jybtx/backstaged-management -vvv
+$ composer require jybtx/backstaged-management
 ```
 
 ## Usage
