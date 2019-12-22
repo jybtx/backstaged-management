@@ -49,6 +49,6 @@ class BackstagedRouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
              ->namespace($this->namespace)
-             ->group( __DIR__ . '/../routes/web.php');
+             ->group( __DIR__ . '/../../routes/backstaged.php');
     }
 }

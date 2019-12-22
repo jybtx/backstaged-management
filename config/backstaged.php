@@ -47,4 +47,7 @@ return [
     	],
     ],
 
+    // 自定义用户名
+    'username' => 'username',
+
 ];
