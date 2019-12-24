@@ -27,7 +27,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jybtx\\Backstaged\\Providers\\BackstagedRouteServiceProvider"
+                "Jybtx\\Backstaged\\Providers\\BackstagedRouteServiceProvider",
+                "Jybtx\\Backstaged\\Providers\\BackstagedServiceProvider"
             ]
         }
     }

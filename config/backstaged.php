@@ -18,7 +18,7 @@ return [
 
         'namespace' => 'Jybtx\\Backstaged\\Http\\Controllers',
 
-        'middleware' => ['web'],
+        'middleware' => ['web','admin'],
     ],
     /*
     |--------------------------------------------------------------------------
