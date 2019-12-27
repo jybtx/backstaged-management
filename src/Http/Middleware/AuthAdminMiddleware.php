@@ -14,6 +14,6 @@ class AuthAdminMiddleware
      */
 	public function handle($request, Closure $next)
 	{
-		# code...
+		dd('AuthAdminMiddleware');
 	}
 }

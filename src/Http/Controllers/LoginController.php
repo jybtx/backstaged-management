@@ -3,6 +3,7 @@
 namespace Jybtx\Backstaged\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Jybtx\Backstaged\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -42,7 +43,7 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
-    	# code...
+    	return View::make('test');
     }
     /**
      * [自定义登录界面]
@@ -52,7 +53,8 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        dd(view());
+        return view('jybtx::test');
+        // return View::make('test');
     }
     /**
      * [自定义认证驱动]

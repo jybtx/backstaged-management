@@ -13,7 +13,9 @@ class BackstagedKernel extends HttpKernel
      *
      * @var array
      */
-    protected $middleware = [];
+    protected $middleware = [
+        \Jybtx\Backstaged\Http\Middleware\AuthAdminMiddleware::class,
+    ];
 
     /**
      * The application's route middleware groups.

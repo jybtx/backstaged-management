@@ -26,8 +26,27 @@ class BackstagedServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__."/../../config/backstaged.php" => config_path('backstaged.php'),
-        ],'backstaged');
+        ]);
+        $this->publishes([
+            __DIR__ . "/../../resources/views" => base_path('resources/views/')
+        ]);
+        $this->publishes([
+            __DIR__ . "/../../resources/assets" => public_path('vendor/')
+        ]);
     }
+    /**
+     * [viewsPaths description]
+     * @author jybtx
+     * @date   2019-12-27
+     * @return [type]     [description]
+     */
+    private function viewsPaths()
+    {
+        $this->loadViewsFrom(
+            __DIR__ . "/../../resources/views/admin", "jybtx"
+        );
+    }
+    
     /**
      * Register any application services.
      *
@@ -46,5 +65,6 @@ class BackstagedServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configurePaths();
+        $this->viewsPaths();
     }
 }
