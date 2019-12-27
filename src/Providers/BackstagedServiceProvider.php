@@ -33,6 +33,9 @@ class BackstagedServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . "/../../resources/assets" => public_path('vendor/')
         ]);
+        $this->publishes([
+            __DIR__ . "/../../database/migrations" => database_path('migrations')
+        ]);
     }
     /**
      * [viewsPaths description]
@@ -45,6 +48,7 @@ class BackstagedServiceProvider extends ServiceProvider
         $this->loadViewsFrom(
             __DIR__ . "/../../resources/views/admin", "jybtx"
         );
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
     
     /**
