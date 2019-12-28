@@ -31,18 +31,22 @@ return [
     | You can specify a controller for `login` `logout` and other auth routes.
     |
     */
-   'guards' => [
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
+   'auth' => [
+        'guard' => 'admin',
+        'guards' => [
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admins',
+            ],
         ],
-    ],
-    'providers' => [
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => Jybtx\Backstaged\Models\Admin::class,
+        'providers' => [
+            'admins' => [
+                'driver' => 'eloquent',
+                'model' => Jybtx\Backstaged\Models\Admin::class,
+            ],
         ],
-    ],
+   ],
+   
 
     // 自定义用户名
     'username' => 'username',

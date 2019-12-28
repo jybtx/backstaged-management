@@ -2,11 +2,31 @@
 
 namespace Jybtx\Backstaged\Providers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
 class BackstagedServiceProvider extends ServiceProvider
 {
-
+    protected $routeMiddleware = [
+        'admin' => \Jybtx\Backstaged\Http\Middleware\AuthAdminMiddleware::class
+    ];
+    protected $middlewareGroups = [];
+    protected $commands = [];
+    /**
+     * [registerRouteMiddleware description]
+     * @author jybtx
+     * @date   2019-12-28
+     * @return [type]     [description]
+     */
+    protected function registerRouteMiddleware()
+    {
+        foreach ($this->middlewareGroups as $key => $middleware) {
+            $this->app['router']->middlewareGroup($key, $middleware);
+        }
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            $this->app['router']->aliasMiddleware($key, $middleware);
+        }
+    }
     /**
      * Merge configuration.
      */
@@ -24,18 +44,20 @@ class BackstagedServiceProvider extends ServiceProvider
      */
     private function configurePaths()
     {
-        $this->publishes([
-            __DIR__."/../../config/backstaged.php" => config_path('backstaged.php'),
-        ]);
-        $this->publishes([
-            __DIR__ . "/../../resources/views" => base_path('resources/views/')
-        ]);
-        $this->publishes([
-            __DIR__ . "/../../resources/assets" => public_path('vendor/')
-        ]);
-        $this->publishes([
-            __DIR__ . "/../../database/migrations" => database_path('migrations')
-        ]);
+        if ( $this->app->runningInConsole() ) {
+            $this->publishes([
+                __DIR__."/../../config/backstaged.php" => config_path('backstaged.php'),
+            ]);
+            $this->publishes([
+                __DIR__ . "/../../resources/views" => base_path('resources/views/')
+            ]);
+            $this->publishes([
+                __DIR__ . "/../../resources/assets" => public_path('vendor/')
+            ]);
+            $this->publishes([
+                __DIR__ . "/../../database/migrations" => database_path('migrations')
+            ]);
+        }
     }
     /**
      * [viewsPaths description]
@@ -50,6 +72,10 @@ class BackstagedServiceProvider extends ServiceProvider
         );
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
+    protected function loadAdminAuthConfig()
+    {
+        config(Arr::dot(config('backstaged.auth', []), 'auth.'));
+    }
     
     /**
      * Register any application services.
@@ -59,6 +85,8 @@ class BackstagedServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfig();
+        $this->loadAdminAuthConfig();
+        $this->registerRouteMiddleware();
     }
 
     /**
@@ -71,4 +99,5 @@ class BackstagedServiceProvider extends ServiceProvider
         $this->configurePaths();
         $this->viewsPaths();
     }
+    
 }

@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo;
 
 	protected $username;
     /**
@@ -38,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('guest:admin', ['except' => 'logout']);
+        $this->middleware('guest:admin', ['except' => ['logout','showLoginForm']]);
         $this->username = config('backstaged.username');
     }
     /**
@@ -54,6 +54,8 @@ class LoginController extends Controller
             self::username() => 'required',
             'password' => 'required',
             'captcha' => 'required|captcha'
+        ],[
+            'captcha.captcha'  => '验证码输入错误'
         ]);
     }
     protected function attemptLogin(Request $request)
@@ -67,6 +69,19 @@ class LoginController extends Controller
         );
     }
     /**
+     * Get the post login redirect path.
+     *
+     * @return string
+     */
+    protected function redirectPath()
+    {
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : config('backstaged.route.prefix');
+    }
+
+    /**
      * [重写登录方法]
      * @author jybtx
      * @date   2019-12-27
@@ -76,7 +91,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
     	$this->validateLogin($request);
-
+        dd($request);
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -120,7 +135,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return auth()->guard(config('backstaged.guards.admin'));
+        return auth()->guard(config('backstaged.auth.guard'));
     }
     /**
      * 重写登录验证
@@ -144,6 +159,6 @@ class LoginController extends Controller
         $this->guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();   
-        return redirect('backstaged/login');
+        return redirect()->url( config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'login' );
     }
 }
