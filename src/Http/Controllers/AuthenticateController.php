@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\View;
 use Jybtx\Backstaged\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller
+class AuthenticateController extends Controller
 {
-	
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -30,7 +29,7 @@ class LoginController extends Controller
      */
     protected $redirectTo;
 
-	protected $username;
+    protected $username;
     /**
      * Create a new controller instance.
      *
@@ -38,7 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin', ['except' => ['logout','showLoginForm']]);
+        $this->middleware('guest:'.config('backstaged.route.prefix'), ['except' => ['logout','showLoginForm']]);
         $this->username = config('backstaged.username');
     }
     /**
@@ -65,20 +64,22 @@ class LoginController extends Controller
                 $this->credentials($request),
                 ['is_ban'=>0]
             ),
-            $request->has('remember')
+            $request->filled('remember')
         );
     }
     /**
-     * Get the post login redirect path.
+     * Send the response after the user was authenticated.
      *
-     * @return string
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    protected function redirectPath()
+    protected function sendLoginResponse(Request $request)
     {
-        if (method_exists($this, 'redirectTo')) {
-            return $this->redirectTo();
-        }
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : config('backstaged.route.prefix');
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended( config('backstaged.route.prefix') );
     }
 
     /**
@@ -90,8 +91,7 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-    	$this->validateLogin($request);
-        dd($request);
+        $this->validateLogin($request);
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -155,10 +155,10 @@ class LoginController extends Controller
      * @return [type]              [description]
      */
     public function logout(Request $request)
-    {        
+    {
         $this->guard()->logout();
         $request->session()->flush();
-        $request->session()->regenerate();   
+        $request->session()->regenerate();
         return redirect()->url( config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'login' );
     }
 }

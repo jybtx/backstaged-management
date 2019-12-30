@@ -15,7 +15,10 @@
             <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
                 <div class="card col-lg-4 mx-auto">
                     <div class="card-body px-5 py-5">
-                        <h3 class="card-title text-center mb-3">{{ trans('Background management system') }}</h3>
+                        <h3 class="card-title text-center mb-3">{{ trans('Background management system') }}</h3>   
+                        @if( isset($faild) )
+                        <h6 class="card-title text-center"><code>{{ $faild }}</code></h6>
+                        @endif
                         <form method="POST" action="{{ route(config('backstaged.route.prefix').'.login') }}">
                             <div class="form-group @error(config('backstaged.username')) has-danger @enderror">
                                 <label>{{ trans('Username') }} *</label>

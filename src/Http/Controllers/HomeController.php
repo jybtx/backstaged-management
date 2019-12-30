@@ -7,6 +7,6 @@ class HomeController extends Controller
 	
 	public function index()
 	{
-		dd( 5555 );
+		dd( auth('admin')->user()->username );
 	}
 }
