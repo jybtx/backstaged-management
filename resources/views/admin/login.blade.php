@@ -19,7 +19,7 @@
                         @if( isset($faild) )
                         <h6 class="card-title text-center"><code>{{ $faild }}</code></h6>
                         @endif
-                        <form method="POST" action="{{ route(config('backstaged.route.prefix').'.login') }}">
+                        <form method="POST" action="{{ route( prefixPath() .'.login' ) }}">
                             <div class="form-group @error(config('backstaged.username')) has-danger @enderror">
                                 <label>{{ trans('Username') }} *</label>
                                 <input type="text" name="{{ config('backstaged.username') }}" class="form-control p_input" value="{{ old(config('backstaged.username')) }}"  autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="{{ trans('Username') }}">
