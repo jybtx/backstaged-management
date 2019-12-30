@@ -79,7 +79,7 @@ class AuthenticateController extends Controller
 
         $this->clearLoginAttempts($request);
         return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended( config('backstaged.route.prefix') );
+            ?: redirect()->intended( prefixPath() );
     }
 
     /**
@@ -159,6 +159,6 @@ class AuthenticateController extends Controller
         $this->guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();
-        return redirect()->url( config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'login' );
+        return redirect(prefixPath().DIRECTORY_SEPARATOR.'login');
     }
 }

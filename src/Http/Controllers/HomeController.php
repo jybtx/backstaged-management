@@ -7,6 +7,6 @@ class HomeController extends Controller
 	
 	public function index()
 	{
-		dd( auth('admin')->user()->username );
+		return view('jybtx::index');
 	}
 }

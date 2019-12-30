@@ -8,6 +8,6 @@ Route::group(['prefix'=> prefixPath()],function($route){
 
 Route::group(['prefix'=> prefixPath(),'middleware'=> config('backstaged.route.middleware') ],function($route){
 	$route->get('/','HomeController@index');
-	$route->get('logout','AuthenticateController@logout')->name( prefixPath() .'.logout' );
+	$route->post('logout','AuthenticateController@logout')->name( prefixPath() .'.logout' );
 });
 
