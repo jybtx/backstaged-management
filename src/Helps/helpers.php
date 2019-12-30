@@ -11,3 +11,8 @@ if ( ! function_exists('prefixPath') ) {
 		return config('backstaged.route.prefix');
 	}
 }
+if ( ! function_exists('administrator') ) {
+	function administrator(){
+		return auth(config('backstaged.auth.guard'))->user();
+	}
+}
