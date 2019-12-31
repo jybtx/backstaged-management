@@ -1,4 +1,5 @@
 <?php
+namespace Jybtx\Backstaged\Console\Seeds;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;

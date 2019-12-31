@@ -1,5 +1,5 @@
 <?php
-
+namespace Jybtx\Backstaged\Console\Seeds;
 use Illuminate\Database\Seeder;
 use Jybtx\Backstaged\Models\Role;
 use Jybtx\Backstaged\Models\Menu;

@@ -4,14 +4,16 @@ namespace Jybtx\Backstaged\Providers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
-
+use Jybtx\Backstaged\Console\ExportSeedCommand;
 class BackstagedServiceProvider extends ServiceProvider
 {
     protected $routeMiddleware = [
         'admin' => \Jybtx\Backstaged\Http\Middleware\AuthAdminMiddleware::class
     ];
     protected $middlewareGroups = [];
-    protected $commands = [];
+    protected $commands = [
+        ExportSeedCommand::class
+    ];
     /**
      * [registerRouteMiddleware description]
      * @author jybtx
@@ -71,6 +73,7 @@ class BackstagedServiceProvider extends ServiceProvider
             __DIR__ . "/../../resources/views/admin", "jybtx"
         );
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        
     }
     protected function loadAdminAuthConfig()
     {
@@ -78,6 +81,7 @@ class BackstagedServiceProvider extends ServiceProvider
     }
     
     /**
+     * 在容器中注册绑定。
      * Register any application services.
      *
      * @return void
@@ -87,9 +91,11 @@ class BackstagedServiceProvider extends ServiceProvider
         $this->mergeConfig();
         $this->loadAdminAuthConfig();
         $this->registerRouteMiddleware();
+        $this->commands($this->commands);
     }
 
     /**
+     * 执行服务的注册后启动。
      * Bootstrap any application services.
      *
      * @return void

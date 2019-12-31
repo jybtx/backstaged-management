@@ -1,6 +1,8 @@
 <?php
+namespace Jybtx\Backstaged\Console\Seeds;
 
 use Illuminate\Database\Seeder;
+use Jybtx\Backstaged\Models\Menu;
 
 class MenusTableSeeder extends Seeder
 {
