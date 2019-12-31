@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Jybtx\Backstaged\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
