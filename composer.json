@@ -12,9 +12,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.2.0",
         "laravel/framework": "~6.0",
-        "mews/captcha": "dev-master"
+        "mews/captcha": "dev-master",
+        "hieu-le/active": "dev-master"
     },
     "autoload": {
         "psr-4": {

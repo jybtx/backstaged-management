@@ -37,7 +37,7 @@ class AuthenticateController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:'.config('backstaged.route.prefix'), ['except' => ['logout','showLoginForm']]);
+        $this->middleware('guest:'.config('backstaged.auth.guard'), ['except' => ['logout','showLoginForm']]);
         $this->username = config('backstaged.username');
     }
     /**
