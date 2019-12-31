@@ -15,7 +15,8 @@
         "php": ">=7.2.0",
         "laravel/framework": "~6.0",
         "mews/captcha": "dev-master",
-        "hieu-le/active": "dev-master"
+        "hieu-le/active": "dev-master",
+        "prettus/l5-repository": "dev-master"
     },
     "autoload": {
         "psr-4": {

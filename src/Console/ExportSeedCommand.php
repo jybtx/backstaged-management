@@ -14,7 +14,7 @@ class ExportSeedCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:export-seed';
+    protected $signature = 'jybtx:export-seed';
 
     /**
      * The console command description.
@@ -23,7 +23,7 @@ class ExportSeedCommand extends Command
      */
     protected $description = 'Export Seed Command';
 
-    protected  $seeds = [
+    protected $seeds = [
         AdminsTableSeeder::class,
         MenusTableSeeder::class,
         RoleTableSeeder::class
