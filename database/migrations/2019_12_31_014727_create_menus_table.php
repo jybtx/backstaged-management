@@ -23,7 +23,7 @@ class CreateMenusTable extends Migration
             $table->string('url')->comment('菜单链接地址');
             $table->string('active')->comment('菜单高亮地址');
             $table->string('description')->default('')->comment('描述');
-            $table->tinyInteger('sort')->default(0)->comment('排序');
+            $table->integer('sort')->default(0)->comment('排序');
             $table->text('active_model');
             $table->timestamps();
             $table->comment = '后台菜单表';

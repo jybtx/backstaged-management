@@ -5,6 +5,7 @@ namespace Jybtx\Backstaged\Providers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Jybtx\Backstaged\Console\ExportSeedCommand;
+use Jybtx\Backstaged\Http\ViewComposers\menuSideBarViewComposer;
 class BackstagedServiceProvider extends ServiceProvider
 {
     protected $routeMiddleware = [
@@ -79,6 +80,15 @@ class BackstagedServiceProvider extends ServiceProvider
     {
         config(Arr::dot(config('backstaged.auth', []), 'auth.'));
     }
+    /**
+     * [使用基于类的composers...     视图共享]
+     * @author jybtx
+     * @date   2019-12-31
+     * @return [type]     [description]
+     */
+    protected function viewComposer(){
+        view()->composer('layouts.sidebar',menuSideBarViewComposer::class);
+    }
     
     /**
      * 在容器中注册绑定。
@@ -104,6 +114,7 @@ class BackstagedServiceProvider extends ServiceProvider
     {
         $this->configurePaths();
         $this->viewsPaths();
+        $this->viewComposer();
     }
     
 }
