@@ -9,5 +9,7 @@ Route::group(['prefix'=> prefixPath()],function($route){
 Route::group(['prefix'=> prefixPath(),'middleware'=> config('backstaged.route.middleware') ],function($route){
 	$route->get('/index','HomeController@index');
 	$route->post('logout','AuthenticateController@logout')->name( prefixPath() .'.logout' );
+
+	$route->resource('manager','ManagerController');
 });
 

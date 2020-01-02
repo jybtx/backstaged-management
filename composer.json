@@ -16,7 +16,8 @@
         "laravel/framework": "~6.0",
         "mews/captcha": "dev-master",
         "hieu-le/active": "dev-master",
-        "prettus/l5-repository": "dev-master"
+        "prettus/l5-repository": "dev-master",
+        "laracasts/flash": "dev-master"
     },
     "autoload": {
         "psr-4": {
