@@ -12,5 +12,6 @@ Route::group(['prefix'=> prefixPath(),'middleware'=> config('backstaged.route.mi
 
 	$route->resource('manager','ManagerController');
 	$route->resource('role','RoleController');
+	$route->resource('menu','MenuController');
 });
 
