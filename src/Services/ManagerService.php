@@ -16,17 +16,7 @@ class ManagerService
      */
     public function index()
     {
-        return AdminRepository::with('role:id,name')->orderBy('id','desc')->paginate();;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return AdminRepository::with('role:id,name')->orderBy('id','desc')->paginate();
     }
 
     /**
@@ -37,7 +27,14 @@ class ManagerService
      */
     public function store($attributes)
     {
-        //
+        $result = AdminRepository::create($attributes);
+        if ( $result ) {
+            flash('管理员添加成功！')->success();
+            return redirect()->route('manager.index');
+        } else {
+            flash('管理员添加失败！')->error();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -52,17 +49,6 @@ class ManagerService
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -71,7 +57,14 @@ class ManagerService
      */
     public function update($attributes, $id)
     {
-        //
+        $result = AdminRepository::update($attributes,$id);
+        if ( $result ) {
+            flash('管理员修改成功！')->success();
+            return redirect()->route('manager.index');
+        } else {
+            flash('管理员修改失败！')->error();
+            return redirect()->back();
+        }
     }
 
     /**

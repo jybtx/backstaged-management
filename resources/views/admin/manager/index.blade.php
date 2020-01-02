@@ -11,7 +11,7 @@
                             <a class="pull-right btn btn-outline-primary btn-icon-text" href="{{ route('manager.create') }}">添加管理员</a>
                         @endif
                     </h4>
-                    
+                    @include('flash::message')
                     <div class="table-responsive mb-4">
                         <table class="table table-bordered" style="border:1px solid #2c2e33;">
                             <thead>

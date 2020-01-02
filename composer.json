@@ -17,7 +17,7 @@
         "mews/captcha": "dev-master",
         "hieu-le/active": "dev-master",
         "prettus/l5-repository": "dev-master",
-        "laracasts/flash": "dev-master"
+        "laracasts/flash": "^3.0"
     },
     "autoload": {
         "psr-4": {

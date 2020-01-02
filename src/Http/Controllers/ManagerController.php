@@ -49,7 +49,14 @@ class ManagerController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        //
+        $manager = $request->all();
+        if ( $request->hasFile('avatar') )
+        {
+            $manager['avatar'] = str_replace('public','/storage',$request->avatar->store('public/manager'));
+        }
+        $manager['role_id'] = $request->role_id?:'2';
+        $manager['password'] = bcrypt( $request->password );
+        return $this->manager->store($manager);
     }
 
     /**
@@ -71,7 +78,9 @@ class ManagerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $manager = $this->manager->show($id);
+        $roles = $this->role->index();
+        return view('jybtx::manager.edit',compact('manager','roles'));
     }
 
     /**
@@ -81,9 +90,19 @@ class ManagerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminRequest $request, $id)
     {
-        //
+        $manager = $request->except('_method','_token');
+        if ( $request->hasFile('avatar') ) {
+            @$this->manager->deleteImages($id);
+            $manager['avatar'] = str_replace('public','/storage',$request->avatar->store('public/manager'));
+        }
+        if ( !empty($request->password) ) {
+            $manager['password'] = bcrypt( $request->password );
+        } else {
+            $manager['password'] = $this->manager->show($id)->password;
+        }
+        return $this->manager->update($manager,$id);
     }
 
     /**
