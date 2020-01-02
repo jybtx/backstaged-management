@@ -36,7 +36,7 @@ class RoleService
      */
     public function getAllMenu()
     {
-        $data = MenuRepository::all();
+        $data = MenuRepository::orderBy('sort','asc')->all();
         return self::sortMenu($data);
     }
 
@@ -67,7 +67,19 @@ class RoleService
      */
     public function store($attributes)
     {
-        //
+        $result = RoleRepository::create($attributes);
+        if ( $result ) {
+            flash('角色添加成功！')->success();
+            if ( isset($attributes['data']) ) {
+                collect($attributes['data'])->map(function ($key,$val) use ($result){
+                    PermissionRepository::updateOrCreate(['role_id'=>$result->id,'menu_id'=>$val,'authority'=>json_encode($key)]);
+                });
+            }
+            return redirect()->route('role.index');
+        } else {
+            flash('角色添加失败！')->error();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -78,7 +90,7 @@ class RoleService
      */
     public function show($id)
     {
-        return AdminRepository::find($id);
+        return RoleRepository::find($id);
     }
 
     /**
@@ -101,7 +113,20 @@ class RoleService
      */
     public function update($attributes, $id)
     {
-        //
+        $result = RoleRepository::update($attributes, $id);
+        if ( isset($attributes['data']) ) {
+            @PermissionRepository::deleteWhere(['role_id'=>$id]);
+            collect($attributes['data'])->map(function ($key,$val) use ($id){
+                PermissionRepository::updateOrCreate(['role_id'=>$id,'menu_id'=>$val,'authority'=>json_encode($key)]);
+            });
+        }
+        if ( $result ) {
+            flash('角色更新成功！')->success();
+            return redirect()->route('role.index');
+        } else {
+            flash('角色更新失败！')->error();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -112,28 +137,11 @@ class RoleService
      */
     public function destroy($id)
     {
-        $result = self::show($id);
-        if ( $result->role_id == 1 ) return response()->json(['status'=>0,'msg'=>'超级管理员严禁删除！']);
-        self::deleteImages($id);
-        if ( $result->delete() ) {
-            return response()->json(['status'=>1,'msg'=>'此管理员删除成功！']);
+        $result = RoleRepository::delete($id);
+        if ( $result ) {
+            return response()->json(['status'=>1,'msg'=>'此角色删除成功！']);
         } else {
-            return response()->json(['status'=>0,'msg'=>'此管理员删除失败！']);
-        }
-    }
-    /**
-     * 更新图片
-     * @author jybtx
-     * @date   2019-12-04
-     * @param  [type]     $id [description]
-     * @return [type]         [description]
-     */
-    public function deleteImages($id)
-    {
-        $data = self::show($id);
-        if( !empty($data->avatar) && file_exists( public_path() . '/' . $data->avatar ) )
-        {
-            @unlink( public_path() . '/' . $data->avatar );
+            return response()->json(['status'=>0,'msg'=>'角色删除失败！']);
         }
     }
 }

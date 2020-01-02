@@ -11,5 +11,6 @@ Route::group(['prefix'=> prefixPath(),'middleware'=> config('backstaged.route.mi
 	$route->post('logout','AuthenticateController@logout')->name( prefixPath() .'.logout' );
 
 	$route->resource('manager','ManagerController');
+	$route->resource('role','RoleController');
 });
 
