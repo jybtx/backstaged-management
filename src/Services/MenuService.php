@@ -60,7 +60,7 @@ class MenuService
      */
     public function create()
     {
-        //
+        return MenuRepository::findWhere(['pid'=>0]);
     }
 
     /**
@@ -69,9 +69,45 @@ class MenuService
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($attributes)
     {
-        //
+        $data = [
+            'pid'         => $attributes['menu_pid'],
+            'name'        => $attributes['menu_name'],
+            'icon'        => $attributes['menu_icon'],
+            'controller'  => $attributes['menu_controller'],
+            'url'         => $attributes['menu_url'],
+            'active'      => $attributes['menu_active'],
+            'description' => $attributes['menu_description']?:'',
+        ];
+        if( isset( $attributes['attr_name'] ) )
+        {
+            $array = [];
+            $key = $attributes['attr_name'];
+            $value = $attributes['attr_value'];
+            for ($i=0; $i < count($key) ; $i++) {
+                $array[] = [
+                    'name'  => $key[$i],
+                    'value' => $value[$i]
+                ];
+            }
+            $data['active_model'] = json_encode($array);
+        }
+        else
+        {
+            $data['active_model'] = '';
+        }
+        $bool = MenuRepository::create($data);
+        if( $bool != FALSE )
+        {
+            flash('菜单添加成功！','success');
+            return redirect()->route('menu.index');
+        }
+        else
+        {
+            flash('菜单添加失败！','error');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -82,7 +118,7 @@ class MenuService
      */
     public function show($id)
     {
-        //
+        return MenuRepository::find($id);
     }
 
     /**
@@ -103,9 +139,46 @@ class MenuService
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($attributes, $id)
     {
-        //
+        $data = [
+            'pid'         => $attributes['menu_pid'],
+            'name'        => $attributes['menu_name'],
+            'icon'        => $attributes['menu_icon'],
+            'controller'  => $attributes['menu_controller'],
+            'url'         => $attributes['menu_url'],
+            'active'      => $attributes['menu_active'],
+            'description' => $attributes['menu_description']?:'',
+        ];
+
+        if( isset( $attributes['attr_name'] ) )
+        {
+            $array = [];
+            $key = $attributes['attr_name'];
+            $value = $attributes['attr_value'];
+            for ($i=0; $i < count($key) ; $i++) {
+                $array[] = [
+                    'name'  => $key[$i],
+                    'value' => $value[$i]
+                ];
+            }
+            $data['active_model'] = json_encode($array);
+        }
+        else
+        {
+            $data['active_model'] = '';
+        }
+        $bool = MenuRepository::update($data,$id);
+        if( $bool != FALSE )
+        {
+            flash('菜单修改成功！','success');
+            return redirect()->route('menu.index');
+        }
+        else
+        {
+            flash('菜单修改失败！','error');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -116,6 +189,13 @@ class MenuService
      */
     public function destroy($id)
     {
-        //
+        @PermissionRepository::deleteWhere(['menu_id'=>$id]);
+        $result = self::show($id);
+        @$result->where(['pid'=>$id])->update(['pid'=>0]);
+        if ( $result->delete() ) {
+            return response()->json(['status'=>1,'msg'=>'此菜单删除成功！']);
+        } else {
+            return response()->json(['status'=>0,'msg'=>'此菜单删除失败！']);
+        }
     }
 }

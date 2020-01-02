@@ -3,6 +3,7 @@
 namespace Jybtx\Backstaged\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Jybtx\Backstaged\Requests\MenuRequest;
 use Jybtx\Backstaged\Services\MenuService;
 
 class MenuController extends Controller
@@ -31,7 +32,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        $menu = $this->menu->create();
+        return view('jybtx::menu.create',compact('menu'));
     }
 
     /**
@@ -40,9 +42,9 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
-        //
+        return $this->menu->store($request->all());
     }
 
     /**
@@ -64,7 +66,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $menus = $this->menu->show($id);
+        $menu = $this->menu->create();
+        return view('jybtx::menu.edit',compact('menus','menu'));
     }
 
     /**
@@ -74,9 +78,9 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuRequest $request, $id)
     {
-        //
+        return $this->menu->update($request->all(),$id);
     }
 
     /**
@@ -87,6 +91,6 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->menu->destroy($id);
     }
 }

@@ -72,6 +72,9 @@
 @endsection
 @push('styles')
 <link rel="stylesheet" href="{{ asset('vendor/css/font-awesome.min.css') }}">
+<style>
+.layui-layer-content,.layui-layer-btn1{color: #333 !important;}
+</style>
 @endpush
 @push('scripts')
 <script type="text/javascript">
