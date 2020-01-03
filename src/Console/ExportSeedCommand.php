@@ -42,8 +42,10 @@ class ExportSeedCommand extends Command
         }
         $this->exportBackend();
         $this->call('vendor:publish',[
-            ["--provider" => "Jybtx\Backstaged\Providers\BackstagedServiceProvider"],
-            ["--provider" => "Mews\Captcha\CaptchaServiceProvider"]
+            "--provider" => "Jybtx\Backstaged\Providers\BackstagedServiceProvider"
+        ]);
+        $this->call('vendor:publish',[
+            "--provider" => "Mews\Captcha\CaptchaServiceProvider"
         ]);
         $this->info("The background management extension installation was successful!");
     }
