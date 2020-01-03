@@ -41,8 +41,11 @@ class ExportSeedCommand extends Command
             $this->call($seed);
         }
         $this->exportBackend();
-        $this->call('vendor:publish',["--provider"=>"Jybtx\Backstaged\Providers\BackstagedServiceProvider"]);
-        $this->info("Seed data is successfully populated!");
+        $this->call('vendor:publish',[
+            "--provider" => "Jybtx\Backstaged\Providers\BackstagedServiceProvider",
+            "--provider" => "Mews\Captcha\CaptchaServiceProvider"
+        ]);
+        $this->info("The background management extension installation was successful!");
     }
      /**
      * Export the authentication backend.
