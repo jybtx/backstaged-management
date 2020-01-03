@@ -1,10 +1,30 @@
 <h1> backstaged-management </h1>
 
+
 ## Installing
+
+### Composer
+Execute the following command to get the latest version of the package:
 
 ```shell
 $ composer require jybtx/backstaged-management
 ```
+### Laravel
+
+- PHP >= 7.0.0
+ - Laravel >= 6.0
+ - Fileinfo PHP Extension
+
+ServiceProvider will be attached automatically
+
+Run the following command to publish assets and configure:
+```php
+php artisan jybtx:install
+```
+Open http://localhost/admin/login in browser,use username admin and password 123456 to login.
+
+## Configurations
+The file config/backstaged.php contains an array of configurations, you can find the default configurations in there.
 
 ## Usage
 
