@@ -11,7 +11,7 @@ $ composer require jybtx/backstaged-management
 ```
 ### Laravel
 
-- PHP >= 7.0.0
+- PHP >= 7.2.*
  - Laravel >= 6.0
  - Fileinfo PHP Extension
 
