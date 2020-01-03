@@ -17,6 +17,8 @@ return [
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
 
         'namespace' => 'Jybtx\\Backstaged\\Http\\Controllers',
+
+        'middleware' => ['admin'],
     ],
     /*
     |--------------------------------------------------------------------------
