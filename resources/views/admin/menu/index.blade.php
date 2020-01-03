@@ -52,8 +52,12 @@
                                             <td class="text-center">{!! $v->description !!}</td>
                                             <td class="text-center">{!! $v->created_at !!}</td>
                                             <td class="text-center">
+                                                @if( btnprimission('edit') )
                                                 <a class="btn btn-warning btn-xs mr-2" href="{!! route('menu.edit',$v->id) !!}"><i class="fa fa-edit"></i> 修改</a>
+                                                @endif
+                                                @if( btnprimission('destroy') )
                                                 <a class="btn btn-danger btn-xs" href="javascript:;" onclick="delItem({!! $v->id !!})"><i class="fa fa-trash"></i> 删除</a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach
