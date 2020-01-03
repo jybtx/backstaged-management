@@ -14,14 +14,14 @@ class ExportSeedCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'jybtx:export-seed';
+    protected $signature = 'jybtx:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Export Seed Command';
+    protected $description = 'Install this background extension and migrate and populate background basic data';
 
     protected $seeds = [
         AdminsTableSeeder::class,
@@ -36,10 +36,25 @@ class ExportSeedCommand extends Command
      */
     public function handle()
     {
-        foreach ( $this->seeds as $seed )
-        {
+        $this->call('migrate:refresh');
+        foreach ( $this->seeds as $seed ) {
             $this->call($seed);
         }
+        $this->exportBackend();
+        $this->call('vendor:publish',["--provider"=>"Jybtx\Backstaged\Providers\BackstagedServiceProvider"]);
         $this->info("Seed data is successfully populated!");
+    }
+     /**
+     * Export the authentication backend.
+     *
+     * @return void
+     */
+    protected function exportBackend()
+    {
+        file_put_contents(
+            base_path('routes/web.php'),
+            file_get_contents(__DIR__.'/../../routes/route.stub'),
+            FILE_APPEND
+        );
     }
 }
