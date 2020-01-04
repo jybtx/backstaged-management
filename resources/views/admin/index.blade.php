@@ -88,26 +88,52 @@
   <div class="col-md-4 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Transaction History</h4>
-        <canvas id="transaction-history" class="transaction-chart"></canvas>
+        <h4 class="card-title">系统基本信息</h4>
+        
         <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
           <div class="text-md-center text-xl-left">
-            <h6 class="mb-1">Transfer to Paypal</h6>
-            <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+            <h6 class="mb-1">操作系统</h6>
           </div>
           <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-            <h6 class="font-weight-bold mb-0">$236</h6>
+            <h6 class="font-weight-bold mb-0">{{PHP_OS}}</h6>
           </div>
         </div>
+
         <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
           <div class="text-md-center text-xl-left">
-            <h6 class="mb-1">Tranfer to Stripe</h6>
-            <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+            <h6 class="mb-1">运行环境</h6>
           </div>
           <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-            <h6 class="font-weight-bold mb-0">$593</h6>
+            <h6 class="font-weight-bold mb-0">{{$_SERVER['SERVER_SOFTWARE']}}</h6>
           </div>
         </div>
+
+        <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+            <div class="text-md-center text-xl-left">
+                <h6 class="mb-1">上传附件限制</h6>
+            </div>
+            <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                <h6 class="font-weight-bold mb-0"><?php echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件"; ?></h6>
+            </div>
+        </div>
+
+        <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+            <div class="text-md-center text-xl-left">
+                <h6 class="mb-1">服务器域名/IP</h6>
+            </div>
+            <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                <h6 class="font-weight-bold mb-0">{{$_SERVER['SERVER_NAME']}} [ {{$_SERVER['SERVER_ADDR']}} ]</h6>
+            </div>
+        </div>
+        <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+            <div class="text-md-center text-xl-left">
+                <h6 class="mb-1">北京时间</h6>
+            </div>
+            <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                <h6 class="font-weight-bold mb-0" id="time"></h6>
+            </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -274,5 +300,24 @@
 </div>
 
 </div>
+<?php
+echo '<script type="text/javascript">
+    var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+    function get_obj(time){
+        return document.getElementById(time);
+    }
+    var ts='.(round(microtime(true)*1000)).';
+    function getTime(){
+        var t=new Date(ts);
+        with(t){
+            var _time=""+getFullYear()+"/" + (getMonth()+1)+"/"+getDate()+"&nbsp;&nbsp;" + (getHours()<10 ? "0" :"") + getHours() + ":" + (getMinutes()<10 ? "0":"") + getMinutes()+":"+(getSeconds()<10 ? "0" :"") + getSeconds() + "&nbsp;&nbsp;" + dayNames[t.getDay()];
+        }
+        get_obj("time").innerHTML=_time;
+        setTimeout("getTime()",1000);
+        ts+=1000;
+    }
+    getTime();
+</script>';
+?>
 <!-- content-wrapper ends -->
 @endsection

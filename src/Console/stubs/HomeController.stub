@@ -4,6 +4,11 @@ namespace {{namespace}}Http\Controllers;
 
 use Illuminate\Support\Facades\Artisan;
 
+use Jybtx\Backstaged\Models\Menu;
+use Jybtx\Backstaged\Models\Role;
+use Jybtx\Backstaged\Models\Admin;
+use Jybtx\Backstaged\Models\Permission;
+
 class HomeController extends Controller
 {
 	
