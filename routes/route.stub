@@ -1,4 +1,0 @@
-
-Route::group(['prefix'=> prefixPath(),'namespace' => '','middleware'=> config('backstaged.route.middleware') ],function($route){
-
-});

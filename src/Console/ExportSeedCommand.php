@@ -57,9 +57,26 @@ class ExportSeedCommand extends Command
     protected function exportBackend()
     {
         file_put_contents(
+            app_path('Http/Controllers/HomeController.php'),
+            $this->compileControllerStub()
+        );
+        file_put_contents(
             base_path('routes/web.php'),
-            file_get_contents(__DIR__.'/../../routes/route.stub'),
+            file_get_contents(__DIR__.'/stubs/route.stub'),
             FILE_APPEND
+        );
+    }
+    /**
+     * Compiles the "HomeController" stub.
+     *
+     * @return string
+     */
+    protected function compileControllerStub()
+    {
+        return str_replace(
+            '{{namespace}}',
+            $this->laravel->getNamespace(),
+            file_get_contents(__DIR__.'/stubs/HomeController.stub')
         );
     }
 }

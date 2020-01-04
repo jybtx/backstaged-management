@@ -4,8 +4,12 @@ namespace Jybtx\Backstaged\Http\Controllers;
 use Illuminate\Support\Facades\Artisan;
 use Jybtx\Backstaged\Http\Controllers\Controller;
 class HomeController extends Controller
-{	
-
+{
+	
+	public function index()
+	{
+		return view('jybtx::index');
+	}
 	/**
 	 * 清除缓存
 	 * @author jybtx

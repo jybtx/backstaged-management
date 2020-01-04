@@ -53,8 +53,6 @@ class AuthenticateController extends Controller
             self::username() => 'required',
             'password' => 'required',
             'captcha' => 'required|captcha'
-        ],[
-            'captcha.captcha'  => '验证码输入错误'
         ]);
     }
     protected function attemptLogin(Request $request)

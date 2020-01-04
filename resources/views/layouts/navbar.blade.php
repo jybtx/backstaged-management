@@ -1,7 +1,7 @@
 <nav class="navbar p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
         <a class="navbar-brand brand-logo-mini" href="{{ url(prefixPath().DIRECTORY_SEPARATOR.'index') }}">
-            <img src="/vendor/images/logo-mini.svg" alt="logo" />
+            <img src="/vendor/images/logo-mini.png" alt="logo" style="width: 100%;" />
         </a>
     </div>
     <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -25,14 +25,14 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                     <h6 class="p-3 mb-0">Profile</h6>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item" onclick="clearCache()">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-settings text-success"></i>
+                                <i class="mdi mdi-notification-clear-all"></i>
                             </div>
                         </div>
                         <div class="preview-item-content">
-                            <p class="preview-subject mb-1">Settings</p>
+                            <p class="preview-subject mb-1">清除缓存</p>
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -59,3 +59,38 @@
         </button>
     </div>
 </nav>
+
+<script type="text/javascript">
+function clearCache() {
+    $.ajax({
+        url:"{{ route(prefixPath() .'.clear') }}",
+        dataType:'json',
+        type:'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{},
+        success:function (data) {
+            if( data.status == 0 )
+            {
+                layer.msg(data.msg,{icon:5});
+            }
+            else
+            {
+                // setTimeout(function(){
+                //     window.location.href = window.location.href;
+                // },1500);
+                layer.msg(data.msg,{icon:6,time:9000});
+            }
+        },
+        statusCode:{
+            401:function(){
+                layer.msg('您没有此权限，请联系管理员',{icon:5});
+            }
+        }
+    });
+}
+</script>
+<style>
+    .layui-layer-content.layui-layer-padding{color: #333;}
+</style>

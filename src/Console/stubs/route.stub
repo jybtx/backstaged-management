@@ -1,0 +1,4 @@
+
+Route::group(['prefix'=> prefixPath(),'middleware'=> config('backstaged.route.middleware')],function($route){
+	$route->get('/index','HomeController@index');
+});

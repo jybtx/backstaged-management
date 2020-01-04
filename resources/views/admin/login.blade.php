@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ config('app.name', 'Laravel') }} - {{ trans('Background management system') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - {{ trans('Background Management System') }}</title>
     <link rel="stylesheet" href="{{ asset('vendor/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/css/style.css') }}">
@@ -15,7 +15,7 @@
             <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
                 <div class="card col-lg-4 mx-auto">
                     <div class="card-body px-5 py-5">
-                        <h3 class="card-title text-center mb-3">{{ trans('Background management system') }}</h3>   
+                        <h3 class="card-title text-center mb-3">{{ trans('Background Management System') }}</h3>   
                         @if( isset($faild) )
                         <h6 class="card-title text-center"><code>{{ $faild }}</code></h6>
                         @endif
@@ -28,10 +28,10 @@
                                 @enderror
                             </div>
                             <div class="form-group @error('password') has-danger @enderror"">
-                                <label>Password *</label>
+                                <label>{{ trans('Password') }} *</label>
                                 <input type="password" class="form-control p_input" name="password" placeholder="{{ trans('Password') }}">
                                 @error('password')
-                                    <code>{{ $message }}</code>                                  
+                                    <code>{{ $message }}</code>       
                                 @enderror
                             </div>
                             <div class="form-group @error('captcha') has-danger @enderror">

@@ -60,6 +60,9 @@ class BackstagedServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . "/../../database/migrations" => database_path('migrations')
             ]);
+            $this->publishes([
+                __DIR__ . "/../../resources/lang" => base_path('resources/lang/')
+            ]);
         }
     }
     /**
@@ -74,6 +77,7 @@ class BackstagedServiceProvider extends ServiceProvider
             __DIR__ . "/../../resources/views/admin", "jybtx"
         );
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        // $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'courier');
         
     }
     protected function loadAdminAuthConfig()
