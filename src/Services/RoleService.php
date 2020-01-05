@@ -119,6 +119,8 @@ class RoleService
             collect($attributes['data'])->map(function ($key,$val) use ($id){
                 PermissionRepository::updateOrCreate(['role_id'=>$id,'menu_id'=>$val,'authority'=>json_encode($key)]);
             });
+        } else {
+            @PermissionRepository::deleteWhere(['role_id'=>$id]);
         }
         if ( $result ) {
             flash( trans("Role updated successfully!") )->success();
