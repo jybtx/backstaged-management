@@ -45,11 +45,11 @@ class MenuRequest extends FormRequest
     public function attributes()
     {
         return [
-            'menu_name'       => '菜单名称',
-            'menu_icon'       => '菜单图标',
-            'menu_controller' => '控制器名称',
-            'menu_url'        => '菜单链接地址',
-            'menu_active'     => '菜单高亮地址',
+            'menu_name'       => trans("Menu name"),
+            'menu_icon'       => trans("Menu icon"),
+            'menu_controller' => trans("Controller name"),
+            'menu_url'        => trans("Menu link address"),
+            'menu_active'     => trans("Menu highlight address"),
         ];
     }
 }

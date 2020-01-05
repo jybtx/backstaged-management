@@ -105,7 +105,7 @@ class AuthenticateController extends Controller
         }
         else
         {
-            return view('jybtx::login')->with('faild','该账号已被禁用，请联系管理员！');
+            return view('jybtx::login')->with('faild',trans('This account has been disabled, please contact the administrator!'));
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

@@ -16,6 +16,6 @@ class HomeController extends Controller
 	{
 		Artisan::call('view:clear');
     	cache()->flush();
-    	return response()->json(['status'=>1,'msg'=>'缓存清除成功！']);
+    	return response()->json(['status'=>1,'msg'=> trans("Cache cleared successfully!") ]);
 	}
 }

@@ -29,10 +29,10 @@ class ManagerService
     {
         $result = AdminRepository::create($attributes);
         if ( $result ) {
-            flash('管理员添加成功！')->success();
+            flash( trans("Administrator added successfully!") )->success();
             return redirect()->route('manager.index');
         } else {
-            flash('管理员添加失败！')->error();
+            flash( trans("Administrator addition failed!") )->error();
             return redirect()->back();
         }
     }
@@ -59,10 +59,10 @@ class ManagerService
     {
         $result = AdminRepository::update($attributes,$id);
         if ( $result ) {
-            flash('管理员修改成功！')->success();
+            flash( trans("Administrator modified successfully!") )->success();
             return redirect()->route('manager.index');
         } else {
-            flash('管理员修改失败！')->error();
+            flash( trans("Administrator modification failed!") )->error();
             return redirect()->back();
         }
     }
@@ -76,12 +76,12 @@ class ManagerService
     public function destroy($id)
     {
         $result = self::show($id);
-        if ( $result->role_id == 1 ) return response()->json(['status'=>0,'msg'=>'超级管理员严禁删除！']);
+        if ( $result->role_id == 1 ) return response()->json(['status'=>0,'msg'=> trans("Super administrators are strictly forbidden to delete!") ]);
         self::deleteImages($id);
         if ( $result->delete() ) {
-            return response()->json(['status'=>1,'msg'=>'此管理员删除成功！']);
+            return response()->json(['status'=>1,'msg'=> trans("This administrator deleted successfully!") ]);
         } else {
-            return response()->json(['status'=>0,'msg'=>'此管理员删除失败！']);
+            return response()->json(['status'=>0,'msg'=> trans("This administrator deletion failed!") ]);
         }
     }
     /**

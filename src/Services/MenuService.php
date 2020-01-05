@@ -100,12 +100,12 @@ class MenuService
         $bool = MenuRepository::create($data);
         if( $bool != FALSE )
         {
-            flash('菜单添加成功！','success');
+            flash( trans("Menu added successfully!") ,'success');
             return redirect()->route('menu.index');
         }
         else
         {
-            flash('菜单添加失败！','error');
+            flash( trans("Menu addition failed!") ,'error');
             return redirect()->back();
         }
     }
@@ -171,12 +171,12 @@ class MenuService
         $bool = MenuRepository::update($data,$id);
         if( $bool != FALSE )
         {
-            flash('菜单修改成功！','success');
+            flash( trans("Menu modified successfully!") ,'success');
             return redirect()->route('menu.index');
         }
         else
         {
-            flash('菜单修改失败！','error');
+            flash( trans("Menu modification failed!") ,'error');
             return redirect()->back();
         }
     }
@@ -193,9 +193,9 @@ class MenuService
         $result = self::show($id);
         @$result->where(['pid'=>$id])->update(['pid'=>0]);
         if ( $result->delete() ) {
-            return response()->json(['status'=>1,'msg'=>'此菜单删除成功！']);
+            return response()->json(['status'=>1,'msg'=> trans("This menu was deleted successfully!") ]);
         } else {
-            return response()->json(['status'=>0,'msg'=>'此菜单删除失败！']);
+            return response()->json(['status'=>0,'msg'=> trans("This menu deletion failed!") ]);
         }
     }
 }

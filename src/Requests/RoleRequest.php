@@ -31,8 +31,8 @@ class RoleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'        => '角色名称',
-            'description' => '角色简介'
+            'name'        => trans("Role Name"),
+            'description' => trans("Role profile")
         ];
     }
 }

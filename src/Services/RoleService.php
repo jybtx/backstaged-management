@@ -69,7 +69,7 @@ class RoleService
     {
         $result = RoleRepository::create($attributes);
         if ( $result ) {
-            flash('角色添加成功！')->success();
+            flash( trans("Role added successfully!") )->success();
             if ( isset($attributes['data']) ) {
                 collect($attributes['data'])->map(function ($key,$val) use ($result){
                     PermissionRepository::updateOrCreate(['role_id'=>$result->id,'menu_id'=>$val,'authority'=>json_encode($key)]);
@@ -77,7 +77,7 @@ class RoleService
             }
             return redirect()->route('role.index');
         } else {
-            flash('角色添加失败！')->error();
+            flash( trans("Role addition failed!") )->error();
             return redirect()->back();
         }
     }
@@ -121,10 +121,10 @@ class RoleService
             });
         }
         if ( $result ) {
-            flash('角色更新成功！')->success();
+            flash( trans("Role updated successfully!") )->success();
             return redirect()->route('role.index');
         } else {
-            flash('角色更新失败！')->error();
+            flash( trans("Roles update failed!") )->error();
             return redirect()->back();
         }
     }
@@ -139,9 +139,9 @@ class RoleService
     {
         $result = RoleRepository::delete($id);
         if ( $result ) {
-            return response()->json(['status'=>1,'msg'=>'此角色删除成功！']);
+            return response()->json(['status'=>1,'msg'=> trans("This role deleted successfully!") ]);
         } else {
-            return response()->json(['status'=>0,'msg'=>'角色删除失败！']);
+            return response()->json(['status'=>0,'msg'=> trans("Role deletion failed!") ]);
         }
     }
 }
