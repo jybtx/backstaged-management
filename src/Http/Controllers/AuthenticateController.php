@@ -51,8 +51,8 @@ class AuthenticateController extends Controller
     {
         $this->validate($request, [
             self::username() => 'required',
-            'password' => 'required',
-            'captcha' => 'required|captcha'
+            'password'       => 'required',
+            'captcha'        => 'required|captcha'
         ]);
     }
     protected function attemptLogin(Request $request)
@@ -124,17 +124,7 @@ class AuthenticateController extends Controller
     public function showLoginForm()
     {
         return view('jybtx::login');
-    }
-    /**
-     * [自定义认证驱动]
-     * @author jybtx
-     * @date   2019-12-23
-     * @return [type]     [description]
-     */
-    protected function guard()
-    {
-        return auth()->guard(config('backstaged.auth.guard'));
-    }
+    }    
     /**
      * 重写登录验证
      * @author jybtx
@@ -155,8 +145,18 @@ class AuthenticateController extends Controller
     public function logout(Request $request)
     {
         $this->guard()->logout();
-        $request->session()->flush();
-        $request->session()->regenerate();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect(prefixPath().DIRECTORY_SEPARATOR.'login');
+    }
+    /**
+     * [自定义认证驱动]
+     * @author jybtx
+     * @date   2019-12-23
+     * @return [type]     [description]
+     */
+    protected function guard()
+    {
+        return auth()->guard(config('backstaged.auth.guard'));
     }
 }
