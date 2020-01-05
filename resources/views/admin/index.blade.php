@@ -301,7 +301,7 @@
 
 </div>
 <?php
-echo `<script type="text/javascript">
+echo '<script type="text/javascript">
     var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
     function get_obj(time){
         return document.getElementById(time);
@@ -317,7 +317,7 @@ echo `<script type="text/javascript">
         ts+=1000;
     }
     getTime();
-</script>`;
+</script>';
 ?>
 <!-- content-wrapper ends -->
 @endsection

@@ -40,10 +40,7 @@ class ExportSeedCommand extends Command
         foreach ( $this->seeds as $seed ) {
             $this->call($seed);
         }
-        if (! $this->option('views')) {
-            $this->exportBackend();
-        }
-        // $this->exportBackend();
+        $this->exportBackend();
         $this->call('vendor:publish',[
             "--provider" => "Jybtx\Backstaged\Providers\BackstagedServiceProvider"
         ]);
