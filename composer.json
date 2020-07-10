@@ -13,7 +13,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.2.0",
-        "laravel/framework": "~6.0",
+        "laravel/framework": "~6.0|^7",
         "mews/captcha": "^3.0",
         "hieu-le/active": "^4.0",
         "prettus/l5-repository": "^2.6",

@@ -14,35 +14,35 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         $admin = Role::insertGetId([
-            'name' => '超级管理员',
+            'name'        => '超级管理员',
             'description' => '超级管理员',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at'  => now(),
+            'updated_at'  => now(),
         ]);
         $userId = Role::insertGetId([
-            'name' => '普通用户',
+            'name'        => '普通用户',
             'description' => '普通用户',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at'  => now(),
+            'updated_at'  => now(),
         ]);
         Role::create([
-            'name' => '站点管理员',
+            'name'        => '站点管理员',
             'description' => '站点管理员',
         ]);
         Role::create([
-            'name' => '发布人员',
+            'name'        => '发布人员',
             'description' => '发布人员',
         ]);
         Role::create([
-            'name' => '运营总监',
+            'name'        => '运营总监',
             'description' => '运营总监',
         ]);
         Role::create([
-            'name' => '编辑',
+            'name'        => '编辑',
             'description' => '编辑',
         ]);
         Role::create([
-            'name' => '总编',
+            'name'        => '总编',
             'description' => '总编',
         ]);
         $dataArray = ["index","create","store","edit","update","destroy","show"];
