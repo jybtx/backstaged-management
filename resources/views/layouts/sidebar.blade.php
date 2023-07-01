@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="{{ url(prefixPath().DIRECTORY_SEPARATOR.'index') }}"><img src="/vendor/images/logo.png" alt="logo" style="width: 100%;height: 100%;" /></a>
-        <a class="sidebar-brand brand-logo-mini" href="{{ url(prefixPath().DIRECTORY_SEPARATOR.'index') }}"><img src="/vendor/images/logo-mini.png" alt="logo" style="width: 100%;height: 100%;" /></a>
+        <a class="sidebar-brand brand-logo" href="{{ url(config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'index') }}"><img src="/vendor/images/logo.png" alt="logo" style="width: 100%;height: 100%;" /></a>
+        <a class="sidebar-brand brand-logo-mini" href="{{ url(config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'index') }}"><img src="/vendor/images/logo-mini.png" alt="logo" style="width: 100%;height: 100%;" /></a>
     </div>
     <ul class="nav">
         <li class="nav-item profile">

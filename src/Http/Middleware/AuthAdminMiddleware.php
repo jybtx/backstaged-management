@@ -55,7 +55,7 @@ class AuthAdminMiddleware
           $route = self::convertUrlQuery($currentUrl['path']);
 
           // 当前页面是登录后的首页和退出页面也是直接执行下一步
-          if( $route == prefixPath() .'/index' ||  $route == prefixPath() .'/logout' || $route == prefixPath() .'/clear' ||  $route == prefixPath() .'/logs' ) return $next($request);
+          if( $route == config('backstaged.route.prefix') .'/index' ||  $route == config('backstaged.route.prefix') .'/logout' || $route == config('backstaged.route.prefix') .'/clear' ||  $route == config('backstaged.route.prefix') .'/logs' ) return $next($request);
 
           // 查询当前url和栏目里面的url是否相同
           $url = Menu::where(['url'=>$route])->first();
@@ -68,7 +68,7 @@ class AuthAdminMiddleware
           if( empty($permission) ) abort(401);
 
           if( !in_array( $name['method'], json_decode($permission->authority) ) ) abort(401);
-          
+
           return $next($request);
 	}
 
@@ -88,16 +88,16 @@ class AuthAdminMiddleware
         if ( config('backstaged.path_chenge') ) {
             if ( empty(config('backstaged.before_path')) ) return false;
             if ( hash_equals(config('backstaged.before_path'),config("backstaged.route.prefix")) ) return false;
-            $permissions = Menu::get()->toArray();            
+            $permissions = Menu::get()->toArray();
             foreach ($permissions as $key => $permission) {
                 $method = array_filter(explode('/', $permission['url']));
                 $str = str_replace(config('backstaged.before_path'),config("backstaged.route.prefix"),$method);
                 $path = implode('/',$str);
-                
+
                 $actives = array_filter(explode('/', $permission['active']));
                 $strs = str_replace(config('backstaged.before_path'),config("backstaged.route.prefix"),$actives);
                 $paths = implode('/',$strs);
-                Menu::where(['id'=>$permission['id']])->update(['url'=>$path,'active'=>$paths]);                
+                Menu::where(['id'=>$permission['id']])->update(['url'=>$path,'active'=>$paths]);
             }
         }
     }

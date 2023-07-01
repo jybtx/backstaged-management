@@ -124,7 +124,7 @@ class AuthenticateController extends Controller
     public function showLoginForm()
     {
         return view('jybtx::login');
-    }    
+    }
     /**
      * 重写登录验证
      * @author jybtx
@@ -147,7 +147,7 @@ class AuthenticateController extends Controller
         $this->guard()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect(prefixPath().DIRECTORY_SEPARATOR.'login');
+        return redirect(config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'login');
     }
     /**
      * [自定义认证驱动]

@@ -1,6 +1,6 @@
 <nav class="navbar p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo-mini" href="{{ url(prefixPath().DIRECTORY_SEPARATOR.'index') }}">
+        <a class="navbar-brand brand-logo-mini" href="{{ url(config('backstaged.route.prefix').DIRECTORY_SEPARATOR.'index') }}">
             <img src="/vendor/images/logo-mini.png" alt="logo" style="width: 100%;" />
         </a>
     </div>
@@ -36,7 +36,7 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route(prefixPath() .'.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item preview-item">
+                    <a href="{{ route(config('backstaged.route.prefix') .'.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
                                 <i class="mdi mdi-logout text-danger"></i>
@@ -45,7 +45,7 @@
                         <div class="preview-item-content">
                             <p class="preview-subject mb-1">{{ trans('Logout') }}</p>
                         </div>
-                        <form id="logout-form" action="{{ route(prefixPath() .'.logout') }}" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{ route(config('backstaged.route.prefix') .'.logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     </a>
@@ -63,7 +63,7 @@
 <script type="text/javascript">
 function clearCache() {
     $.ajax({
-        url:"{{ route(prefixPath() .'.clear') }}",
+        url:"{{ route(config('backstaged.route.prefix') .'.clear') }}",
         dataType:'json',
         type:'POST',
         headers: {
