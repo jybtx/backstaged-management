@@ -115,7 +115,7 @@ class RoleService
     {
         $result = RoleRepository::update($attributes, $id);
         if ( isset($attributes['data']) ) {
-//            @PermissionRepository::deleteWhere(['role_id'=>$id]);
+            @PermissionRepository::deleteWhere(['role_id'=>$id]);
             collect($attributes['data'])->map(function ($key,$val) use ($id){
                 PermissionRepository::updateOrCreate(['role_id'=>$id,'menu_id'=>$val,'authority'=>json_encode($key)]);
             });
