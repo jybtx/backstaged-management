@@ -24,8 +24,9 @@
                         name="data[{!! $value->id !!}][]"
                         data-id="{!! $value->id !!}"
                         data-pid="{!! $value->pid !!}"
+                        data-roleId="{!! $roles->id !!}"
                         data-tags="{!! $value->controller !!}"
-                        {!! @in_array( $value->controller , json_decode( $value->getPermissionActive( $value->id , $roles->id )->authority ,true)  ) ? 'checked' : '' !!} data-pid="{!! $value->pid !!}"
+                        {!! @in_array( $value->controller , json_decode( $value->getPermissionActive( $value->id , $roles->id )->authority ,true)  ) ? 'checked' : '' !!}
                         value="{!! $value->controller !!}">全选
             </label>
         </div>
