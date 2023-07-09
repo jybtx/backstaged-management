@@ -43,6 +43,7 @@
                                        name="data[{!! $val->id !!}][]"
                                        data-id="{!! $val->id !!}"
                                        data-pid="{!! $val->pid !!}"
+                                       data-roleId="{!! $roles->id !!}"
                                        {!! @in_array( $v->value , json_decode( $value->getPermissionActive( $val->id , $roles->id )->authority ,true)  ) ? 'checked' : '' !!}
                                        value="{!! $v->value !!}" >{!! $v->name !!}
                             </label>
