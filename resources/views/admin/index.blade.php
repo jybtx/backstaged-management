@@ -89,7 +89,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">系统基本信息</h4>
-        
+
         <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
           <div class="text-md-center text-xl-left">
             <h6 class="mb-1">操作系统</h6>
@@ -113,7 +113,7 @@
                 <h6 class="mb-1">上传附件限制</h6>
             </div>
             <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                <h6 class="font-weight-bold mb-0"><?php echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件"; ?></h6>
+                <h6 class="font-weight-bold mb-0">{!! ini_get('upload_max_filesize') !!}</h6>
             </div>
         </div>
 

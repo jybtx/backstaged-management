@@ -16,10 +16,10 @@ class SiderBarService
      */
     public function getPermission()
     {
-        $getMenuId = PermissionRepository::findByField(['role_id'=>auth('admin')->user()->role_id])->toArray();
+        $getMenuId = PermissionRepository::findByField(['role_id'=>auth('admin')->user()->role_id])->pluck('menu_id')->toArray();
         if ( $getMenuId ) {
-            $MenuId = array_column($getMenuId,'menu_id');
-            $menus = MenuRepository::orderBy('sort','asc')->findWhereIn('id',$MenuId)->toArray();
+//            $MenuId = array_column($getMenuId,'menu_id');
+            $menus = MenuRepository::orderBy('sort','asc')->findWhereIn('id',$getMenuId)->toArray();
             if( $menus ){
                 $menuList = $this->sortMenu( $menus );
                 foreach ($menuList as $k => &$v) {
